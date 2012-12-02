@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Welcome to the Voter Information ADMIN Panel</title>
+<link href="../stylesheets/main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div id="wrapper">
+        <div id="header"><a href="/">ADMIN Panel</a> | Add User
+        	<div style="float:right; font-size:11px">
+            	{% if username %}
+                	Logged in as {{ username }}({{ email }}) <a href="{{ url }}">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+        <div id="body">
+        	{% if username %}
+            	{% if admin %}
+                	{% if appsecret %}
+                    	<div style="font-size:16px">The App (<strong>{{ appname }}</strong>) was registered successfully - your <strong>App ID </strong> is <strong>{{ appid }}</strong> and your<strong>App Secret</strong> is <strong>{{ appsecret }}</strong>. <span style="color:#ED2205"> Keep the App Secret... <strong>Secret</strong></span> </div>
+                    {% else %}
+                        <form name="add-app" method="post" action="/addapp/">
+                            <center>	
+                            <table style="text-align:left">
+                                <tr>
+                                    <td>App Title :</td><td><input type="text" name="app_title" class="text-field"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Creator Name:</td><td><input type="text" name="creator_name" class="text-field"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Creator Email:</td><td><input type="text" name="creator_email" class="text-field"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Creator Mobile:</td><td><input type="text" name="creator_mobile" class="text-field"/></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td></td><td><button id="login-box" type="submit" class="login">Create App</button></td>
+                                </tr>
+                            </table>
+                            </center>
+                        </form>
+                      {% endif %}
+                {% else %}
+                	<div style="color:red">You are not authorized to create an application.</div>
+                {% endif %} 
+            {% else %}
+            	<div class="logged-box">You are not logged in <a id="login-box" class="login"  href="{{ url }}">Login</a></div>
+            {% endif %}
+            <br clear="all" />
+        </div>
+        <br clear="all" />
+    </div>
+</body>
+</html>

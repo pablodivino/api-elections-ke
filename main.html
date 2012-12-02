@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Welcome to the Voter Information API</title>
+<link href="stylesheets/main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div id="wrapper">
+        <div id="header">
+        	Welcome to the Voter Information API
+            {% if username %}
+            	{% if admin %}
+            	 | Admin Panel 
+                {% endif %}
+                 <div class="logged-box" style="float:right; font-size:12px">Logged in as {{ username }}({{ email }}) <a href="{{ url }}">Logout</a></div>
+            {% endif %}
+        </div>
+        <div id="body">
+        	{% if username %}
+            	{% if admin %}
+            		<a class="admin-panel-menu-item" href="/adddata/">
+                    	<img src="http://www.artistsvalley.com/images/icons/Database%20Application%20Icons%20Var/Table%20Receive%20Data%20Add/256x256/Table%20Receive%20Data%20Add.jpg" class="admin-panel-menu-item-pic" />
+                        <div class="admin-panel-menu-item-text">Add Data</div>
+                    </a>
+            		<a class="admin-panel-menu-item" href="/addapp/">
+                    	<img src="http://www.veryicon.com/icon/png/System/Pry%20System/Applications.png" class="admin-panel-menu-item-pic"/>
+                        <div class="admin-panel-menu-item-text">Add App</div>
+                    </a>
+            		<a class="admin-panel-menu-item" href="/addapp/">
+                    	<div class="admin-panel-menu-item-notification">3</div>
+                    	<img src="http://www.veryicon.com/icon/png/System/Pry%20System/Applications.png" class="admin-panel-menu-item-pic"/>
+                        <div class="admin-panel-menu-item-text">Approve Requests</div>
+                    </a>
+ 				{% else  %}
+                	{% if apps == False %}
+                    <!-- if the logged in user has no apps registered apps display a request form -->
+                    	<form name="add-app" method="post" action="/addapp/">
+                            <center>	
+                            <table style="text-align:left">
+                                <tr>
+                                    <td>App Title :</td><td><input type="text" name="app_title" class="text-field"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Creator Name:</td><td><input value="" type="text" name="creator_name" class="text-field"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Creator Email:</td><td><input value="{{ email }}" type="text" name="creator_email" class="text-field"/></td>
+                                </tr>
+                                <tr>
+                                    <td>Creator Mobile:</td><td><input type="text" name="creator_mobile" class="text-field"/></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td></td><td><button id="login-box" type="submit" class="login">Create App</button></td>
+                                </tr>
+                            </table>
+                            </center>
+                        </form>
+                    {% else %}
+                    	{% for app in apps %}
+                        	<ol type="a">
+                            	<li>
+                                    {{ app.app_name }} 
+                                    <p>Application ID (<strong>appid</strong>) is {{ app.app_id }}</p>
+                                    <p>
+                                    {% if app.status == "approved" %}
+                                    	Application Secret (<strong>appsecret</strong>) is {{ app.app_secret }} 
+                                    {% else %}
+                                    	Application Awaiting Approval. <strong>Application status is {{ app.status }}</strong>
+                                    {% endif %}
+                                    </p>
+                                </li>
+                            </ol>
+                        {% endfor %}
+                        <a style="color:#60BF00; font-size:15px" href="#" class="underlinks">Proceed to the API Documentation >>></a>
+                    {% endif %}
+                {% endif %}
+            {% else %}
+            	<div class="logged-box">You are not logged in <a id="login-box" class="login"  href="{{ url }}">Login</a></div>
+            {% endif %}
+            <br clear="all" />
+        </div>
+        <br clear="all" />
+    </div>
+</body>
+</html>

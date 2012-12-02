@@ -1,0 +1,116 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Welcome to the Voter Information ADMIN Panel</title>
+<link href="../stylesheets/main.css" rel="stylesheet" type="text/css" />
+<script src="../js/jquery.js" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#confirmed-row').hide(0)
+	$('#results-row').hide(0)
+	$('#election-row').hide(0)
+	$('#data_type').change(function(){
+		$('#csv-row').slideDown(300)
+		if($(this).children('option:selected').attr('value')=="results"){
+			$('#confirmed-row').slideDown(200)
+			$('#results-row').slideDown(200)
+			$('#election-row').slideUp(300)
+		}
+		else if($(this).children('option:selected').attr('value')=="election"){
+			$('#election-row').slideDown(300)
+			$('#confirmed-row').slideUp(300)
+			$('#results-row').slideUp(300)
+			$('#csv-row').slideUp(300)
+		}
+		else{
+			$('#confirmed-row').slideUp(300)
+			$('#results-row').slideUp(300)
+			$('#election-row').slideUp(300)
+		}
+	})
+});
+</script>
+</head>
+<body>
+	<div id="wrapper">
+        <div id="header"><a href="/">ADMIN Panel</a> | Add Data
+        	<div style="float:right; font-size:11px">
+            	{% if username %}
+                	Logged in as {{ username }}({{ email }}) <a href="{{ url }}">Logout</a>
+                {% endif %}
+            </div>
+        </div>
+        <div id="body">
+        	{% if username %}
+            	{% if admin %}
+                	    <form name="add-data" method="post" action="/adddata/">
+                            <center>	
+                            <table style="text-align:left">
+                            	<tr>
+                                    <td>Select Data Type: </td>
+                                    <td>
+                                    	<select name="data_type" class="text-field" id="data_type">
+                                        	<option value="select">Select Data Type...</option>
+                                        	<option value="election">Election</option>
+                                        	<option value="county">County</option>
+                                        	<option value="constituency">Constituency</option>
+                                        	<option value="wards">Wards</option>
+                                        	<option value="results">Results</option>
+                                        	<option value="parties">Parties</option>
+                                        	<option value="contests">Contests</option>
+                                        	<option value="candidates">Candidates</option>
+                                        	<option value="e_posts">Elective Posts</option>
+                                        	<option value="p_stations">Polling Stations</option>
+                                        	<option value="voters">Voters</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr id="election-row">
+                                	<td>Election Title</td>
+                                	<td><input type="text" name="election_title" class="text-field" style="font-weight:100; color:#95DB4F"/></td>
+                                </tr>
+                                <tr id="results-row">
+                                	<td>Select Election</td>
+                                	<td>
+                                    	<select name="election_selected" class="text-field" id="data_type">
+                                        	<option value="select">Select Election...</option>
+                                        	<option value="E2012">Election 2012</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr id="csv-row">
+                                    <td>Enter CSV Link: </td><td><input type="text" name="data_link" class="text-field" style="font-weight:100; color:#95DB4F"/></td>
+                                </tr>
+                                <tr id="confirmed-row">
+                                    <td>Confirmed: </td><td style="text-align:left"><input type="checkbox" name="confirmed" class="text-field" style="font-weight:100; color:#95DB4F; float:left" value="Yes" id="confirmed-box"/></td>
+                                </tr>
+                                <tr>
+                                    <td></td><td><button id="login-box" type="submit" class="login">Submit CSV</button></td>
+                                </tr>
+                            </table>
+                            </center>
+                        </form>
+                        {% if Message %}
+                        	<strong style="color:#FC3503">{{ Message }}</strong><br /><br /><br />
+                            {% if error %}
+                            	<strong style="color:#E93501">Some Records were not entered. </strong>A record with a matching IEBC Code found. For the Following entries:
+                            	<ol>
+                            	{% for e in error %}
+                                	<li>{{ e }}</li>
+                                {% endfor %}
+                                </ol>
+                            {% endif %}
+                        {% endif %}
+                {% else %}
+                	<div style="color:red">You are not authorized to create an application.</div>
+                {% endif %} 
+            {% else %}
+            	<div class="logged-box">You are not logged in <a id="login-box" class="login"  href="{{ url }}">Login</a></div>
+            {% endif %}
+            <br clear="all" />
+        </div>
+        <br clear="all" />
+    </div>
+</body>
+</html>

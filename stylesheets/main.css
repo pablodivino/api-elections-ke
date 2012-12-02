@@ -1,0 +1,108 @@
+@charset "utf-8";
+/* CSS Document */
+
+a{
+	border:none;
+	outline:none;
+	text-decoration:none;
+	color:inherit;
+}
+
+a:hover.underlinks{
+	text-decoration:underline;
+}
+
+body{
+	margin:0px;
+	padding:50px;
+	height:100%;
+}
+
+#wrapper{
+	border:1px solid #0461C8;
+	font-family:Tahoma, Geneva, sans-serif;
+	font-size:11px;
+	color:#141818;
+}
+
+#header{
+	padding:7px 25px;
+	background-color:#0461C8;
+	font-size:14px;
+	font-weight:700;
+	color:#EFF4F8;
+}
+
+#body{
+	padding:25px;
+}
+
+#login-box{
+	padding:8px 25px;
+	font-size:14px;
+	border-radius:4px;
+	text-shadow:0px -1px 0px #1A1A1A;
+}
+
+#login-box:hover{
+	cursor:pointer;
+	box-shadow:0px 0px 3px #111;
+	border:1px solid #111;
+}
+
+.login{
+	color:#65AB63;
+	border:1px solid #65AB63;
+}
+
+.logout{
+	color:#ED5047;
+	border:1px solid #ED5047;
+}
+
+.text-field{
+	width:250px;
+	border:1px solid #93938C;
+	padding:7px 5px;
+	color:#303030;
+	font-size:13px;
+	font-weight:800;
+}
+
+.admin-panel-menu-item{
+	position:relative;
+	padding:5px;
+	float:left;
+	color:#33322F;
+	margin-right:25px;
+	font-size:12px;
+	font-weight:100;
+	cursor:pointer;
+}
+
+.admin-panel-menu-item-pic{
+	width:50px;
+	height:50px;
+	text-align:center;
+	clear:both;
+}
+
+.admin-panel-menu-item-text{
+	text-align:center;
+	clear:both;
+}
+
+.admin-panel-menu-item:hover .admin-panel-menu-item-text{
+	color:#CF5049;
+}
+
+.admin-panel-menu-item-notification{
+	position:absolute;
+	left:50%;
+	top:50%;
+	box-shadow:0px 0px 3px #321110;
+	padding:1px 7px;
+	border-radius:3px;
+	background-color:#D81010;
+	color:white;
+}
